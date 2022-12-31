@@ -64,9 +64,8 @@ class routeFunction {
       if (data) {
         const SCRT_KEY = process.env.KEY;
         const token = jwt.sign({ userId: data._id }, SCRT_KEY);
-        res.cookie("jwt_forgot", token);
-        const link = `https://resumebackend/setpassword/${token}`;
-        res.status(201).send({ message: link });
+        const link = `https://buildres.netlify.app/setpassword/${token}`;
+        res.send({ message: link, success: true });
         const mail = {
           from: "sushilkc2611@gmail.com",
           to: `${data.gmail}`,
@@ -75,13 +74,13 @@ class routeFunction {
         };
         transport.sendMail(mail, (err, data) => {
           if (err) {
-            console.log(err);
+            res.send({ message: err, success: false });
           } else {
             console.log("email sent");
           }
         });
       } else {
-        res.status(401).send({ message: "invaldid gmail" });
+        res.send({ message: "invaldid gmail", success: false });
       }
     } catch (error) {
       res.status(401).send(error);
@@ -98,11 +97,10 @@ class routeFunction {
       { _id: match.userId },
       { $set: { password: hashPassword } }
     );
-    res.send(data);
+    res.send({ message: data, success: true });
   };
   static contact = (req, res) => {
     const { name, phone, message, gmail } = req.body;
-    console.log(name, phone);
     const mail = {
       from: { gmail },
       to: "sushilkc2611@gmail.com",
