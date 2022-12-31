@@ -4,10 +4,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const transport = nodemailer.createTransport({
-  service: "gmail",
+  service: "gmail.com",
+  // port: 587,
+  // secure: false, // true for 465, false for other ports
   auth: {
-    user: "sushilkc2611@gmail.com",
-    pass: "pndxtryjxyfysgxn",
+    user: process.env.USER,
+    pass: process.env.PASS,
   },
 });
 
@@ -65,7 +67,6 @@ class routeFunction {
         const SCRT_KEY = process.env.KEY;
         const token = jwt.sign({ userId: data._id }, SCRT_KEY);
         const link = `https://buildres.netlify.app/setpassword/${token}`;
-        res.send({ message: link, success: true });
         const mail = {
           from: "sushilkc2611@gmail.com",
           to: `${data.gmail}`,
@@ -76,7 +77,7 @@ class routeFunction {
           if (err) {
             res.send({ message: err, success: false });
           } else {
-            console.log("email sent");
+            res.send({ message: "Email was sent", success: true });
           }
         });
       } else {
@@ -116,7 +117,7 @@ class routeFunction {
         res.send({ message: err, success: false });
       }
     });
-    res.send({ message: "success", success: true });
+    res.send({ message: data, success: true });
   };
 }
 module.exports = routeFunction;
