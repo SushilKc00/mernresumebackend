@@ -11,7 +11,6 @@ const transport = nodemailer.createTransport({
     user: process.env.USER,
     pass: process.env.PASS,
   },
-  host: "smtp.gmail.com",
 });
 
 class routeFunction {
