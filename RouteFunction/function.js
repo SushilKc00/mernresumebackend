@@ -4,13 +4,14 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const transport = nodemailer.createTransport({
-  service: "gmail.com",
-  // port: 587,
-  // secure: false, // true for 465, false for other ports
+  service: "gmail",
+  port: 465,
+  secure: true, // true for 465, false for other ports
   auth: {
     user: process.env.USER,
     pass: process.env.PASS,
   },
+  host: "smtp.gmail.com",
 });
 
 class routeFunction {
