@@ -112,12 +112,12 @@ class routeFunction {
             <a href="mailto:${gmail}" >${gmail}<a/>
             `,
     };
-    transport.sendMail(mail, (err, data) => {
+    transport.sendMail(mail, (err) => {
       if (err) {
         res.send({ message: err, success: false });
       }
     });
-    res.send({ message: data, success: true });
+    res.send({ message: "success", success: true });
   };
 }
 module.exports = routeFunction;
