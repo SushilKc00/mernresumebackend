@@ -104,7 +104,7 @@ class routeFunction {
     const { name, phone, message, gmail } = req.body;
     const mail = {
       from: { gmail },
-      to: "sushilkc2611@gmail.com",
+      to: process.env.USER,
       subject: "mydata",
       html: `<h1> Name : ${name}</h1>
             <p> Message : ${message}</p>

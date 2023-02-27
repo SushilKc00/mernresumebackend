@@ -11,10 +11,6 @@ app.use(cors());
 app.use("/api/user/v1", Router);
 DBconnect(dbUrl);
 
-app.get("/", (req, res) => {
-  res.send({ mes: "Welcome" });
-});
-
 app.listen(Port, (err) => {
   if (err) {
     throw err;
